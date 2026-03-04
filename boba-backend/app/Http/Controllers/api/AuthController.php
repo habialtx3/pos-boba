@@ -22,4 +22,18 @@ class AuthController extends Controller
             'token' => $token
         ]);
     }
+
+    public function logout(Request $request)
+    {
+        // hapus semua token user
+        $user = $request->user();
+
+        if ($user) {
+            $user->tokens()->delete(); // Eloquent delete
+        }
+
+        return response()->json([
+            'message' => 'Logged out'
+        ]);
+    }
 }
